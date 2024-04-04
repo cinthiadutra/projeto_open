@@ -24,13 +24,15 @@ class PostList extends Equatable {
 
   factory PostList.fromMap(Map<String, dynamic> map) {
     return PostList(
-      posts: List<PostModel>.from(map['posts']?.map((x) => PostModel.fromMap(x))),
+      posts:
+          List<PostModel>.from(map['posts']?.map((x) => PostModel.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PostList.fromJson(String source) => PostList.fromMap(json.decode(source));
+  factory PostList.fromJson(String source) =>
+      PostList.fromMap(json.decode(source));
 
   PostList copyWith({
     List<PostModel>? posts,

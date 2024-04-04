@@ -53,8 +53,8 @@ class OpenService {
 
   Future<List<PostComment>> getCommentPost(int postId) async {
     try {
-      final response =
-          await dio.get("https://jsonplaceholder.typicode.com/posts/$postId/comments");
+      final response = await dio
+          .get("https://jsonplaceholder.typicode.com/posts/$postId/comments");
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
         return data.map((json) => PostComment.fromMap(json)).toList();

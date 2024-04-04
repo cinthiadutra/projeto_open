@@ -11,8 +11,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final controller = Modular.get<OpenController>();
-
   @override
   void initState() {
     super.initState();

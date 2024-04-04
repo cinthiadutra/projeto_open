@@ -6,7 +6,6 @@ class AppConfigUi {
   ///constructor private
   ///
   static final ThemeData themeData = ThemeData(
-
       primaryColor: const Color.fromARGB(255, 1, 100, 36),
       primaryColorLight: const Color.fromARGB(255, 4, 144, 123),
       inputDecorationTheme: const InputDecorationTheme(

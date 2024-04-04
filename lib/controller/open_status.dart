@@ -10,19 +10,22 @@ class HomeState {
   final List<PostModel>? post;
   final PostModel? model;
   final List<PostComment>? comment;
-  HomeState( {this.status = HomeStatus.initial, this.post, this.model,this.comment,});
+  HomeState({
+    this.status = HomeStatus.initial,
+    this.post,
+    this.model,
+    this.comment,
+  });
 
-  HomeState copyWith({
-    HomeStatus? status,
-    List<PostModel>? post,
-    PostModel? model,
-    List<PostComment>? comment
-  }) {
+  HomeState copyWith(
+      {HomeStatus? status,
+      List<PostModel>? post,
+      PostModel? model,
+      List<PostComment>? comment}) {
     return HomeState(
-      status: status ?? this.status,
-      post: post ?? this.post,
-      model: model ?? this.model,
-      comment: comment?? this.comment
-    );
+        status: status ?? this.status,
+        post: post ?? this.post,
+        model: model ?? this.model,
+        comment: comment ?? this.comment);
   }
 }
