@@ -8,16 +8,16 @@ import 'package:projeto_open/view/splash_page.dart';
 class AppModule extends Module {
   @override
   void binds(i) {
-    i.add(OpenController.new);
+    i.addSingleton(OpenController.new);
     i.add(OpenService.new);
   }
 
   @override
   void routes(r) {
     final args = r.args;
-    r.child('/', child: (context) => SplashPage());
+    r.child('/', child: (context) => const SplashPage());
 
-    r.child('/home', child: (context) => HomePage());
+    r.child('/home', child: (context) => const HomePage());
     r.child('/detail',
         child: (context) => PostDetailPage(
               index: args.data,
@@ -26,6 +26,6 @@ class AppModule extends Module {
 
   @override
   void exportedBinds(i) {
-    i.add(OpenController.new);
+    i.addSingleton(OpenController.new);
   }
 }

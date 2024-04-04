@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:projeto_open/controller/open_controller.dart';
-import 'package:projeto_open/model/post_comment.dart';
+import 'package:projeto_open/controller/open_status.dart';
 import 'package:projeto_open/model/post_model.dart';
 
 class PostDetailPage extends StatelessWidget {
   final int index;
   final PostModel? model;
-  final List<PostComment>? comment;
 
-  PostDetailPage({Key? key, required this.index, this.model, this.comment})
-      : super(key: key);
+  PostDetailPage({Key? key, required this.index, this.model}) : super(key: key);
   final controller = Modular.get<OpenController>();
 
   @override
@@ -52,21 +51,31 @@ class PostDetailPage extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 400,
-            child: FutureBuilder(
-                future: controller.getCommentPostById(model?.id ?? 0),
-                builder: (context, snap) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: comment?.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(comment?[index].email ?? ''),
-                          subtitle: Text(comment?[index].body ?? ''),
-                        );
-                      });
-                }),
-          )
+              height: 400,
+              child: BlocBuilder<OpenController, HomeState>(
+                bloc: controller,
+                builder: (context, state) {
+                  if (state.status == HomeStatus.loading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state.status == HomeStatus.loaded) {
+                    final comment = state.comment;
+
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: comment?.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(comment?[index].email ?? ''),
+                            subtitle: Text(comment?[index].body ?? ''),
+                          );
+                        });
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ))
         ])),
       ),
     );

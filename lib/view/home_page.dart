@@ -131,7 +131,6 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => PostDetailPage(
                             model: posts,
                             index: state.post?[index].id ?? 0,
-                            comment: controller.listacomments,
                           ),
                         ));
                       },
