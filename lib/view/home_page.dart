@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_open/controller/open_controller.dart';
 import 'package:projeto_open/controller/open_status.dart';
+import 'package:projeto_open/view/create_post_page.dart';
 import 'package:projeto_open/view/post_detail_page.dart';
 import 'package:projeto_open/view/widget/drawer_open.dart';
 
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> {
         builder: (context, state) {
           if (state.status == HomeStatus.loading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
             );
           } else if (state.status == HomeStatus.loaded ||
               state.status == HomeStatus.initial) {
@@ -50,33 +53,39 @@ class _HomePageState extends State<HomePage> {
                 final posts = state.post?[index];
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: Card(
-                    elevation: 0.5,
-                    child: ListTile(
-                      trailing: const Icon(
-                        Icons.arrow_right_outlined,
-                        size: 20,
+                  child: Dismissible(
+                    background: const Card(color: Colors.red),
+                    onDismissed: (direction) =>
+                        controller.deletePostById(post.id),
+                    key: UniqueKey(),
+                    child: Card(
+                      elevation: 0.5,
+                      child: ListTile(
+                        trailing: const Icon(
+                          Icons.arrow_right_outlined,
+                          size: 20,
+                        ),
+                        title: Text(
+                          post.title,
+                          style: const TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          post.body,
+                          style: const TextStyle(fontSize: 10),
+                        ),
+                        onTap: () {
+                          controller
+                              .getCommentPostById(state.post?[index].id ?? 0);
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => PostDetailPage(
+                              model: posts,
+                              index: state.post?[index].id ?? 0,
+                              comment: controller.listacomments,
+                            ),
+                          ));
+                        },
                       ),
-                      title: Text(
-                        post.title,
-                        style: const TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        post.body,
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                      onTap: () {
-                        controller
-                            .getCommentPostById(state.post?[index].id ?? 0);
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => PostDetailPage(
-                            model: posts,
-                            index: state.post?[index].id ?? 0,
-                            comment: controller.listacomments,
-                          ),
-                        ));
-                      },
                     ),
                   ),
                 );
@@ -95,7 +104,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () {
-          controller.getAllPosts();
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CreatePostPage()));
         },
         child: const Icon(Icons.refresh),
       ),
