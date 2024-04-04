@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_open/controller/open_controller.dart';
-import 'package:projeto_open/view/home_page.dart';
 
-class SplashPage extends StatelessWidget {
-  SplashPage({super.key});
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      Navigator.of(context).pushReplacementNamed('/home');
+    });
+  }
+
   final controller = Modular.get<OpenController>();
 
   @override
@@ -20,19 +33,6 @@ class SplashPage extends StatelessWidget {
               scale: 2.0,
             ),
           ),
-          ElevatedButton(
-              style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(Colors.green)),
-              onPressed: () async {
-                await controller.getAllPosts().whenComplete(
-                        await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    )));
-                if (controller.listaPostagens.isEmpty) {
-                  controller.getAllPosts();
-                }
-              },
-              child: const Text('Entrar'))
         ],
       ),
     );

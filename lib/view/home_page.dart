@@ -14,6 +14,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final OpenController controller = Modular.get<OpenController>();
+  @override
+  void initState() {
+    super.initState();
+    controller.getAllPosts();
+  }
 
   @override
   Widget build(BuildContext context) {

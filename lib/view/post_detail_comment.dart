@@ -14,37 +14,40 @@ class PostDetailComment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset(
-          "assets/images/openLogo.png",
-          scale: 3.0,
+    return RefreshIndicator(
+      onRefresh: () => controller.getCommentPostById(index),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Image.asset(
+            "assets/images/openLogo.png",
+            scale: 3.0,
+          ),
+          elevation: 3.0,
+          centerTitle: true,
         ),
-        elevation: 3.0,
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-            child: ListView(shrinkWrap: true, children: [
-          Text(
-            'Nome: ${comment?.name[index]}',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Commentário: ${comment?.body[index]}',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'email: ${comment?.email[index]}',
-            style: const TextStyle(fontSize: 16),
-          ),
-          const SizedBox(height: 20),
-          const SizedBox(height: 20),
-        ])),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: SizedBox(
+              child: ListView(shrinkWrap: true, children: [
+            Text(
+              'Nome: ${comment?.name[index]}',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Commentário: ${comment?.body[index]}',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'email: ${comment?.email[index]}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
+          ])),
+        ),
       ),
     );
   }
