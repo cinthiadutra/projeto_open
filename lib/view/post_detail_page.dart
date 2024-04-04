@@ -59,7 +59,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               child: ListView(shrinkWrap: true, children: [
             const SizedBox(height: 10),
             Text(
-              'Titulo: ${widget.model?.title}',
+              'Post: ${widget.model?.title}',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -87,8 +87,17 @@ class _PostDetailPageState extends State<PostDetailPage> {
                       itemCount: state.comment?.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          title: Text(state.comment?[index].email ?? ''),
-                          subtitle: Text(state.comment?[index].body ?? ''),
+                          title: Text(
+                            state.comment?[index].email ?? '',
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
+                          ),
+                          subtitle: Text(
+                            state.comment?[index].body ?? '',
+                            style: const TextStyle(fontSize: 10),
+                          ),
                         );
                       }),
                 );
