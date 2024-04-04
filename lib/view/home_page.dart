@@ -16,6 +16,12 @@ class _HomePageState extends State<HomePage> {
   final OpenController controller = Modular.get<OpenController>();
 
   @override
+  void initState() {
+    super.initState();
+    controller.getAllPosts();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
@@ -26,8 +32,7 @@ class _HomePageState extends State<HomePage> {
             const ListTile(
               title: Text(
                 'Cinthia Dutra',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
               ),
               leading: Icon(
                 Icons.person,
@@ -37,8 +42,7 @@ class _HomePageState extends State<HomePage> {
             const ListTile(
               title: Text(
                 'cinthiadutra@gmail.com',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
               ),
               leading: Icon(
                 Icons.email,
@@ -48,8 +52,7 @@ class _HomePageState extends State<HomePage> {
             const ListTile(
               title: Text(
                 '(21)99900-5171',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
               ),
               leading: Icon(
                 Icons.phone,
@@ -67,10 +70,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 title: Text(
                   'Sair',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      fontStyle: FontStyle.italic),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontStyle: FontStyle.italic),
                 ),
               ),
             )
@@ -93,8 +93,7 @@ class _HomePageState extends State<HomePage> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state.status == HomeStatus.loaded ||
-              state.status == HomeStatus.initial) {
+          } else if (state.status == HomeStatus.loaded || state.status == HomeStatus.initial) {
             return ListView.builder(
               itemCount: controller.listaPostagens.length,
               itemBuilder: (context, index) {
@@ -111,16 +110,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                       title: Text(
                         post.title,
-                        style: const TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
                         post.body,
                         style: const TextStyle(fontSize: 10),
                       ),
                       onTap: () {
-                        controller
-                            .getCommentPostById(state.post?[index].id ?? 0);
+                        controller.getCommentPostById(state.post?[index].id ?? 0);
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => PostDetailPage(
                             model: posts,
