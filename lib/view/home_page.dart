@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_open/controller/open_controller.dart';
 import 'package:projeto_open/controller/open_status.dart';
 import 'package:projeto_open/view/post_detail_page.dart';
+import 'package:projeto_open/view/widget/drawer_open.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key}) : super();
@@ -23,65 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.black,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const ListTile(
-              title: Text(
-                'Cinthia Dutra',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-              ),
-              leading: Icon(
-                Icons.person,
-                color: Colors.grey,
-              ),
-            ),
-            const ListTile(
-              title: Text(
-                'cinthiadutra@gmail.com',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-              ),
-              leading: Icon(
-                Icons.email,
-                color: Colors.grey,
-              ),
-            ),
-            const ListTile(
-              title: Text(
-                '(21)99900-5171',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
-              ),
-              leading: Icon(
-                Icons.phone,
-                color: Colors.grey,
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                Modular.to.pushReplacementNamed('/');
-              },
-              child: const ListTile(
-                leading: Icon(
-                  Icons.logout,
-                  color: Colors.grey,
-                ),
-                title: Text(
-                  'Sair',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      fontStyle: FontStyle.italic),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+      drawer: OpenDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset(
@@ -150,6 +93,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
         onPressed: () {
           controller.getAllPosts();
         },
