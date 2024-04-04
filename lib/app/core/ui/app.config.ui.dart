@@ -6,8 +6,11 @@ class AppConfigUi {
   ///constructor private
   ///
   static final ThemeData themeData = ThemeData(
-
-      primaryColor: const Color.fromARGB(255, 1, 100, 36),
+      appBarTheme:
+          const AppBarTheme(iconTheme: IconThemeData(color: Colors.green)),
+      drawerTheme: const DrawerThemeData(
+          scrimColor: Colors.green, shadowColor: Colors.green),
+      primaryColor: Colors.green,
       primaryColorLight: const Color.fromARGB(255, 4, 144, 123),
       inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
