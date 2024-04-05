@@ -39,7 +39,7 @@ class OpenService {
     }
   }
 
-  Future<PostModel?> fetchPostById(int id) async {
+  Future<PostModel?> getPostById(int id) async {
     try {
       final response = await dio.get('$baseUrl/posts/$id');
       if (response.statusCode == 200) {
