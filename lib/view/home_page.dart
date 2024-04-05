@@ -24,90 +24,93 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: OpenDrawer(),
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Image.asset(
-          "assets/images/openLogo.png",
-          scale: 3.0,
+    return RefreshIndicator(
+      onRefresh: () => controller.getAllPosts(),
+      child: Scaffold(
+        drawer: OpenDrawer(),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Image.asset(
+            "assets/images/openLogo.png",
+            scale: 3.0,
+          ),
+          elevation: 3.0,
+          centerTitle: true,
         ),
-        elevation: 3.0,
-        centerTitle: true,
-      ),
-      body: BlocBuilder<OpenController, HomeState>(
-        bloc: controller,
-        builder: (context, state) {
-          if (state.status == HomeStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.green,
-              ),
-            );
-          } else if (state.status == HomeStatus.loaded ||
-              state.status == HomeStatus.initial) {
-            return ListView.builder(
-              itemCount: controller.listaPostagens.length,
-              itemBuilder: (context, index) {
-                final post = controller.listaPostagens[index];
-                final posts = state.post?[index];
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Dismissible(
-                    background: const Card(color: Colors.red),
-                    onDismissed: (direction) =>
-                        controller.deletePostById(post.id),
-                    key: UniqueKey(),
-                    child: Card(
-                      elevation: 0.5,
-                      child: ListTile(
-                        trailing: const Icon(
-                          Icons.arrow_right_outlined,
-                          size: 20,
+        body: BlocBuilder<OpenController, HomeState>(
+          bloc: controller,
+          builder: (context, state) {
+            if (state.status == HomeStatus.loading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.green,
+                ),
+              );
+            } else if (state.status == HomeStatus.loaded ||
+                state.status == HomeStatus.initial) {
+              return ListView.builder(
+                itemCount: controller.listaPostagens.length,
+                itemBuilder: (context, index) {
+                  final post = controller.listaPostagens[index];
+                  final posts = state.post?[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Dismissible(
+                      background: const Card(color: Colors.red),
+                      onDismissed: (direction) =>
+                          controller.deletePostById(post.id),
+                      key: UniqueKey(),
+                      child: Card(
+                        elevation: 0.5,
+                        child: ListTile(
+                          trailing: const Icon(
+                            Icons.arrow_right_outlined,
+                            size: 20,
+                          ),
+                          title: Text(
+                            post.title,
+                            style: const TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            post.body,
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                          onTap: () {
+                            controller
+                                .getCommentPostById(state.post?[index].id ?? 0);
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PostDetailPage(
+                                model: posts,
+                                index: state.post?[index].id ?? 0,
+                                comment: controller.listacomments,
+                              ),
+                            ));
+                          },
                         ),
-                        title: Text(
-                          post.title,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          post.body,
-                          style: const TextStyle(fontSize: 10),
-                        ),
-                        onTap: () {
-                          controller
-                              .getCommentPostById(state.post?[index].id ?? 0);
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => PostDetailPage(
-                              model: posts,
-                              index: state.post?[index].id ?? 0,
-                              comment: controller.listacomments,
-                            ),
-                          ));
-                        },
                       ),
                     ),
-                  ),
-                );
-              },
-            );
-          } else if (state.status == HomeStatus.failure) {
+                  );
+                },
+              );
+            } else if (state.status == HomeStatus.failure) {
+              return const Center(
+                child: Text('Erro ao carregar os posts'),
+              );
+            }
             return const Center(
-              child: Text('Erro ao carregar os posts'),
+              child: Text('Nenhum post encontrado'),
             );
-          }
-          return const Center(
-            child: Text('Nenhum post encontrado'),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
-        onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CreatePostPage()));
-        },
-        child: const Icon(Icons.refresh),
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.green,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const CreatePostPage()));
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
