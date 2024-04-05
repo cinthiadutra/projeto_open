@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_open/controller/open_controller.dart';
 import 'package:projeto_open/view/widget/appBar_open.dart';
 import 'package:projeto_open/view/widget/drawer_open.dart';
+import 'package:validatorless/validatorless.dart';
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key});
@@ -28,15 +29,19 @@ class _CreatePostPageState extends State<CreatePostPage> {
           children: [
             const Text('Titulo'),
             TextFormField(
+              key: const Key('input_title_key'),
               controller: title,
+              validator: Validatorless.min(5, 'Texto muito curto'),
             ),
             const SizedBox(
               height: 30,
             ),
             const Text('Mensagem'),
             TextFormField(
+              key: const Key('input_body_key'),
               controller: body,
               maxLines: 4,
+              validator: Validatorless.required("Não pode ser vazio"),
             ),
             const SizedBox(
               height: 40,
@@ -44,6 +49,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
+                key: const Key('button_criar_key'),
                 style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.green)),
                 onPressed: () async {
@@ -65,6 +71,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: ElevatedButton(
+                key: const Key('button_voltar_key'),
                 style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(Colors.grey)),
                 onPressed: () async {

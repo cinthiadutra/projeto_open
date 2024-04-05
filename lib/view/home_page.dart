@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                           controller.deletePostById(post.id),
                       key: UniqueKey(),
                       child: Card(
+                        key: Key('post_key'),
                         elevation: 0.5,
                         child: ListTile(
                           trailing: const Icon(
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(key: Key('button_add_key'),
           backgroundColor: Colors.green,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
