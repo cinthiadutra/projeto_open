@@ -45,6 +45,8 @@ dependencies:
   dio: ^5.4.2+1
   fl_chart: ^0.67.0
   logging: ^1.2.0
+  integration_test:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
