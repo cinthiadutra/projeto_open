@@ -14,16 +14,18 @@ class OpenController extends Cubit<HomeState> {
   List<PostModel> listaPostagens = [];
   List<PostComment> listacomments = [];
 
+
+//função que busca post por Id especifico
   Future<void> getPostById(int id) async {
     emit(state.copyWith(status: HomeStatus.loading));
     try {
-      final post = await openService.fetchPostById(id);
+      final post = await openService.getPostById(id);
       emit(state.copyWith(status: HomeStatus.loaded, model: post));
     } catch (e) {
       emit(state.copyWith(status: HomeStatus.failure));
     }
   }
-
+// funçao que tras todos os Posts
   Future<void> getAllPosts() async {
     emit(state.copyWith(status: HomeStatus.loading));
 
@@ -35,7 +37,7 @@ class OpenController extends Cubit<HomeState> {
       emit(state.copyWith(status: HomeStatus.failure));
     }
   }
-
+// função que tras os comentários daquele post
   Future<void> getCommentPostById(int postId) async {
     emit(state.copyWith(status: HomeStatus.loading));
     try {
@@ -46,7 +48,7 @@ class OpenController extends Cubit<HomeState> {
       emit(state.copyWith(status: HomeStatus.failure));
     }
   }
-
+//funçao que deleta o post 
   Future<void> deletePostById(int id) async {
     emit(state.copyWith(status: HomeStatus.loading));
     try {
@@ -56,7 +58,7 @@ class OpenController extends Cubit<HomeState> {
       emit(state.copyWith(status: HomeStatus.failure));
     }
   }
-
+//funçao que cria um novo post
   Future<void> addPost({
     String? title,
     String? body,
