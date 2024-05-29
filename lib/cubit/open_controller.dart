@@ -1,8 +1,8 @@
 import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:projeto_open/controller/open_service.dart';
-import 'package:projeto_open/controller/open_status.dart';
+import 'package:projeto_open/cubit/open_service.dart';
+import 'package:projeto_open/cubit/home_status.dart';
 import 'package:projeto_open/model/post_comment.dart';
 import 'package:projeto_open/model/post_model.dart';
 

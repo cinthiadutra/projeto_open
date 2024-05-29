@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:projeto_open/controller/open_controller.dart';
-import 'package:projeto_open/controller/open_service.dart';
+import 'package:projeto_open/cubit/open_controller.dart';
+import 'package:projeto_open/cubit/open_service.dart';
 import 'package:projeto_open/view/home_page.dart';
 import 'package:projeto_open/view/post_detail_page.dart';
 import 'package:projeto_open/view/splash_page.dart';

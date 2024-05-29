@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:projeto_open/controller/open_controller.dart';
-import 'package:projeto_open/controller/open_status.dart';
+import 'package:projeto_open/cubit/open_controller.dart';
+import 'package:projeto_open/cubit/home_status.dart';
 import 'package:projeto_open/view/create_post_page.dart';
 import 'package:projeto_open/view/post_detail_page.dart';
 import 'package:projeto_open/view/widget/drawer_open.dart';
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                           controller.deletePostById(post.id),
                       key: UniqueKey(),
                       child: Card(
-                        key: Key('post_key'),
+                        key: const Key('post_key'),
                         elevation: 0.5,
                         child: ListTile(
                           trailing: const Icon(
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           subtitle: Text(
                             post.body,
-                            style: const TextStyle(fontSize: 10),
+                            style: const TextStyle(fontSize: 12),
                           ),
                           onTap: () {
                             controller
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(key: Key('button_add_key'),
+        floatingActionButton: FloatingActionButton(key: const Key('button_add_key'),
           backgroundColor: Colors.green,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
